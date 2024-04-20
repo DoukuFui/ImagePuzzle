@@ -53,7 +53,7 @@
     //Tạo ra các mảnh ngẫu nhiên từ các bức ảnh mỗi khi load trang
     for(var i = 1; i<=5; i++){
         var randomNumber = Math.floor(Math.random() * 7) + 1;
-        document.getElementById("ImagePart"+i).src = "Image" + randomNumber + "_" + i + ".jpg";
+        document.getElementById("ImagePart"+i).src = "Images/Image" + randomNumber + "_" + i + ".jpg";
     }
 
     //Hàm kiểm tra xem các mảnh của ảnh có ghép lại thành một bức ảnh hoàn chỉnh hay không
@@ -93,7 +93,7 @@
         var imageNumber = imageUrl.split("e").pop().split("_")[0];
         if (imageNumber == 7) imageNumber = 1;
         else imageNumber++;
-        document.getElementById("ImagePart"+part).src = "Image" + imageNumber + "_" + part + ".jpg";
+        document.getElementById("ImagePart"+part).src = "Images/Image" + imageNumber + "_" + part + ".jpg";
         checkImage();
     }
 </script>
