@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Puzzle</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .frame {
+            width: 538px;
+            height: 150px;
+            border: 2px solid black;
+            overflow: hidden;
+            justify-content: center;
+            display: inline-block;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1);
+            margin-bottom: 5px;
+        }
+
+        .frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1 id="notify" style="font-family: Arial">Choose the right piece to complete the picture</h1>
+<div class="frame" onclick="changeImage(1)">
+    <img id="ImagePart1" src="">
+</div>
+<br>
+<div class="frame" onclick="changeImage(2)">
+    <img id="ImagePart2" src="">
+</div>
+<br>
+<div class="frame" onclick="changeImage(3)">
+    <img id="ImagePart3" src="">
+</div>
+<br>
+<div class="frame" onclick="changeImage(4)">
+    <img id="ImagePart4" src="">
+</div>
+<br>
+<div class="frame" onclick="changeImage(5)">
+    <img id="ImagePart5" src="">
+</div>
+<script>
+    //Tạo ra các mảnh ngẫu nhiên từ các bức ảnh mỗi khi load trang
+    for(var i = 1; i<=5; i++){
+        var randomNumber = Math.floor(Math.random() * 7) + 1;
+        document.getElementById("ImagePart"+i).src = "Image" + randomNumber + "_" + i + ".jpg";
+    }
+
+    //Hàm kiểm tra xem các mảnh của ảnh có ghép lại thành một bức ảnh hoàn chỉnh hay không
+    function checkImage(){
+        var imageFirstUrl = document.getElementById("ImagePart1").src;
+        var imageFirstNumber = imageFirstUrl.split("e").pop().split("_")[0];
+        var check = 1;
+        for(var i = 2; i<=5; i++) {
+            var imageUrl = document.getElementById("ImagePart" + i).src;
+            var imageNumber = imageUrl.split("e").pop().split("_")[0];
+            if (imageNumber != imageFirstNumber) {
+                check = 0;
+                break;
+            }
+        }
+        console.log(check);
+        if (check == 1) {
+            document.getElementById("notify").innerHTML = "You got a complete picture!";
+            document.getElementById("notify").style.color = "red";
+            var divs = document.querySelectorAll('.frame');
+            divs.forEach(function(div) {
+                div.style.boxShadow = "3px 3px 10px rgba(255, 0, 0, 1)";
+            });
+        }
+        else {
+            document.getElementById("notify").innerHTML = "Choose the right piece to complete the picture";
+            document.getElementById("notify").style.color = "black";
+            var divs = document.querySelectorAll('.frame');
+            divs.forEach(function(div) {
+                div.style.boxShadow = "3px 3px 10px rgba(0, 0, 0, 1)";
+            });
+        }
+    }
+
+    //Hàm thay đổi ảnh của một mảnh mỗi khi nhấn vào
+    function changeImage(part){
+        var imageUrl = document.getElementById("ImagePart" + part).src;
+        var imageNumber = imageUrl.split("e").pop().split("_")[0];
+        if (imageNumber == 7) imageNumber = 1;
+        else imageNumber++;
+        document.getElementById("ImagePart"+part).src = "Image" + imageNumber + "_" + part + ".jpg";
+        checkImage();
+    }
+</script>
+</body>
+</html>
